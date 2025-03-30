@@ -831,3 +831,354 @@ return `Hello, my name is ${this.name}.`;
 ### Why It’s Important:
 
 Understanding classes and their relationship to constructor functions helps you write modern, maintainable object-oriented code and better leverage JavaScript’s capabilities for building scalable applications.
+
+# 43. What are some common string methods in JavaScript, and how do they work?
+
+## Answer:
+
+JavaScript strings come with a variety of built-in methods that simplify text manipulation and querying. Some of the most common include:
+
+- toUpperCase() / toLowerCase():
+
+  - How It Works: Converts all characters in a string to uppercase or lowercase respectively.
+
+  - Usage: Useful for case-insensitive comparisons.
+
+- trim():
+
+  - How It Works: Removes whitespace from both ends of a string without altering the original content.
+
+  - Usage: Ensures user input is clean before processing or storing.
+
+- charAt() / charCodeAt():
+
+  - How It Works: charAt(index) returns the character at the specified index, while charCodeAt(index) returns its Unicode value.
+
+  - Usage: Handy for low-level string manipulation.
+
+- concat():
+
+  - How It Works: Combines two or more strings into a new string.
+
+  - Usage: An alternative to using the + operator for concatenation.
+
+- split():
+
+  - How It Works: Divides a string into an array of substrings based on a specified separator.
+
+  - Usage: Useful for parsing CSV values or tokenizing text.
+
+- slice(), substring(), substr():
+
+  - How They Work: All extract portions of a string, but differ in handling negative indices and parameters (more details below).
+
+  - Usage: Essential for breaking down or analyzing parts of a string.
+
+- includes(), indexOf(), lastIndexOf():
+
+  - How They Work: includes() checks for the presence of a substring, while indexOf() and lastIndexOf() return the first or last index of a substring respectively, or -1 if not found.
+
+  - Usage: These methods are critical for search and validation operations.
+
+### Why It’s Important:
+
+Mastering these methods allows you to effectively manipulate and query strings, which is fundamental for tasks such as input validation, formatting, and data transformation in JavaScript applications.
+
+# 44. How do you extract substrings from a string in JavaScript, and what’s the difference between slice(), substring(), and substr()?
+
+## Answer:
+
+JavaScript offers multiple methods to extract portions of a string. Although they serve similar purposes, they differ in behavior:
+
+- slice(start, end):
+
+  - How It Works: Extracts a section from a string from the start index up to, but not including, the end index. It accepts negative indices, counting from the end of the string.
+
+  - Usage: Preferred for its versatility with negative values.
+
+- substring(start, end):
+
+  - How It Works: Similar to slice, but does not accept negative indices. If start is greater than end, it swaps the two values.
+
+  - Usage: Useful when negative indices are not needed and a more forgiving behavior on index order is desired.
+
+- substr(start, length):
+
+  - How It Works: Extracts a substring beginning at the specified start index and continuing for a given length of characters.
+
+  - Usage: Best when the number of characters to extract is known. Note that this method is considered legacy and may not be recommended for new code.
+
+### Why It’s Important:
+
+Understanding these differences enables you to choose the right method based on your specific use case, ensuring your code is both clear and robust when dealing with text processing.
+
+# 45. How do template literals work in JavaScript, and what advantages do they offer over traditional string concatenation?
+
+## Answer:
+
+Template literals, introduced in ES6, offer a modern way to work with strings, making them more readable and easier to manipulate.
+
+### How It Works:
+
+- Enclosed by backticks (`), template literals allow embedded expressions using the ${expression} syntax.
+
+- They support multi-line strings without the need for escape characters.
+
+- Example:
+
+```
+const name = 'Alice';
+const greeting = `Hello, ${name}! Welcome to our site.`;
+```
+
+### Why It’s Important:
+
+Template literals enhance code readability, simplify the integration of variables and expressions within strings, and reduce the syntactic overhead compared to traditional concatenation using the + operator. This makes them especially useful for dynamic content generation in web applications.
+
+# 46. How can you search for substrings within a string, and what methods would you use?
+
+## Answer:
+
+JavaScript provides several methods to search for substrings within a string:
+
+- includes():
+
+  - How It Works: Returns true if a given substring is found within the string, false otherwise.
+
+  - Usage: Ideal for simple, case-sensitive checks.
+
+- indexOf() / lastIndexOf():
+
+  - How They Work: indexOf() returns the index of the first occurrence of a substring, while lastIndexOf() returns the last occurrence. If not found, they return -1.
+
+  - Usage: Useful for both presence checks and determining the position of a substring for further processing.
+
+- search():
+
+  - How It Works: Accepts a regular expression and returns the index of the match or -1 if not found.
+
+  - Usage: Offers more advanced pattern matching compared to simple string searches.
+
+### Why It’s Important:
+
+Efficient substring search is crucial for data validation, parsing, and text processing tasks, enabling developers to implement features such as auto-complete, search suggestions, and dynamic content filtering.
+
+# 47. How do you convert a string to a number in JavaScript, and what methods can be used?
+
+## Answer:
+
+Converting strings to numbers is a common operation, and JavaScript offers several ways to do this, each with its own use cases:
+
+- parseInt() and parseFloat():
+
+  - How They Work:
+
+    - parseInt() converts a string to an integer, optionally accepting a radix (base).
+
+    - parseFloat() converts a string to a floating-point number.
+
+  - Usage: Use these methods when the string represents a numerical value that might include non-numeric characters, as they parse the number until an invalid character is encountered.
+
+- Number():
+
+  - How It Works: Converts the entire string into a number, returning NaN if the conversion fails.
+
+  - Usage: Preferred when you expect the string to represent a valid number and need strict conversion.
+
+- Unary Plus (+):
+
+  - How It Works: Prepending a plus sign converts the string to a number in a concise way.
+
+  - Usage: Useful for simple conversions in expressions.
+
+### Why It’s Important:
+
+Correctly converting string values to numbers is vital for calculations, comparisons, and ensuring type consistency in your code, reducing bugs related to type coercion.
+
+# 48. What are Maps and Sets in JavaScript, and how do they differ from regular objects and arrays?
+
+## Answer:
+
+Maps and Sets are built-in data structures introduced in ES6 that provide efficient ways to store collections of data.
+
+### How They Work:
+
+- Map:
+
+  - Stores key-value pairs and allows keys of any type (objects, functions, primitives).
+
+  - Maintains insertion order, and its size can be determined using the .size property.
+
+- Set:
+
+  - Stores unique values of any type.
+
+  - Also preserves insertion order and provides a .size property for quick size retrieval.
+
+  - Differences from Objects/Arrays:
+
+### Objects vs. Map:
+
+- Objects use strings (or symbols) as keys and do not maintain insertion order reliably.
+
+- Maps offer better performance for frequent additions/removals and can use keys of any type.
+
+### Arrays vs. Set:
+
+- Arrays allow duplicate values and support indexed access.
+
+- Sets automatically ensure uniqueness, which is useful for filtering out duplicates.
+
+### Why It’s Important:
+
+Maps and Sets offer cleaner APIs for certain tasks (like caching or maintaining unique collections) and can lead to more readable, efficient code when handling collections with specific requirements.
+
+# 49. What are the time complexities of common operations on Maps and Sets in JavaScript?
+
+## Answer:
+
+Both Maps and Sets in JavaScript are implemented to provide efficient operations, with average-case time complexities typically being O(1) for most actions.
+
+### How It Works:
+
+- Insertion, Deletion, and Lookup:
+
+  - For both Maps and Sets, adding an item (set.add() or map.set()), removing an item (set.delete() or map.delete()), and checking for existence (set.has() or map.has()) are designed to operate in constant time (O(1)) under average conditions.
+
+- Iteration:
+
+  - Iterating over a Map or Set using forEach() or for...of takes O(n) time, where n is the number of elements, since each element must be processed once.
+
+### Why It’s Important:
+
+Understanding these complexities helps you choose the right data structure for performance-critical applications and ensures you can optimize operations based on data size.
+
+# 50. How does the insertion order in a Map or Set affect iteration, and why might this be useful?
+
+## Answer:
+
+Maps and Sets maintain insertion order, meaning the order in which elements are added is preserved during iteration.
+
+## How It Works:
+
+- Iteration Order:
+
+  - When iterating over a Map using `for...of` or `forEach()`, key-value pairs are returned in the order they were inserted.
+
+  - Similarly, a Set returns its values in insertion order.
+
+- Practical Use:
+
+  - This property is especially useful when the order of data is important—for example, when processing events or preserving sequence in a caching mechanism.
+
+### Why It’s Important:
+
+The ability to maintain insertion order allows for predictable iteration, which is crucial in applications that rely on the sequence of data or need to implement algorithms that depend on order.
+
+# 51. How do you merge two Maps or two Sets in JavaScript?
+
+## Answer:
+
+Merging Maps and Sets can be achieved using the spread operator or by iterating over one structure and adding its values to another.
+
+### How It Works:
+
+- Merging Maps:
+
+  - You can merge two Maps into a new Map by spreading their entries:
+
+```
+const map1 = new Map([['a', 1], ['b', 2]]);
+const map2 = new Map([['b', 3], ['c', 4]]);
+const mergedMap = new Map([...map1, ...map2]);
+// Note: In this example, 'b' from map2 overwrites map1's 'b'
+```
+
+- Merging Sets:
+
+  - Similarly, merge two Sets by spreading their values into a new Set:
+
+```
+const set1 = new Set([1, 2, 3]);
+const set2 = new Set([3, 4, 5]);
+const mergedSet = new Set([...set1, ...set2]);
+// mergedSet will contain 1, 2, 3, 4, 5
+```
+
+### Why It’s Important:
+
+Merging data from multiple sources is a common task, and knowing how to combine Maps or Sets efficiently is essential for writing clean, performant code in scenarios such as combining configuration objects or consolidating collections of unique items.
+
+# 52. How can you convert an object or an array into a Map or Set, and vice versa?
+
+## Answer:
+
+Conversion between common data types and Maps/Sets is often needed for data manipulation.
+
+### How It Works:
+
+- Object to Map:
+
+  Convert an object to a Map using Object.entries(), which returns an array of key-value pairs:
+
+```
+const obj = { a: 1, b: 2 };
+const map = new Map(Object.entries(obj));
+```
+
+- Map to Object:
+
+  Convert a Map back to an object using Object.fromEntries():
+
+```
+const newObj = Object.fromEntries(map);
+```
+
+- Array to Set:
+
+  Create a Set from an array to ensure uniqueness:
+
+```
+const arr = [1, 2, 2, 3];
+const set = new Set(arr); // {1, 2, 3}
+```
+
+- Set to Array:
+
+  Convert a Set back to an array using the spread operator:
+
+```
+const uniqueArray = [...set];
+```
+
+### Why It’s Important:
+
+These conversions are useful when you need to enforce uniqueness, perform quick lookups, or transform data formats between different parts of your application. It demonstrates flexibility in handling various data structures in JavaScript.
+
+# 53. What are some real-world scenarios where using a Map or Set would be particularly advantageous?
+
+## Answer:
+
+Maps and Sets excel in scenarios where performance and data integrity (uniqueness) are crucial.
+
+### How It Works:
+
+- Caching:
+
+  - Map: Useful for caching frequently accessed data with complex keys (objects, arrays) where quick lookup and insertion are necessary.
+
+- Tracking Unique Values:
+
+  - Set: Ideal for storing unique identifiers (e.g., user IDs, tokens) where duplicates must be avoided.
+
+- Order Preservation:
+
+  - Both data structures maintain insertion order, which is beneficial when the sequence of events or data matters, such as logging user interactions in the order they occur.
+
+- Complex Data Associations:
+
+  - Map: When working with configurations or lookup tables where keys may not be strings, a Map provides a more flexible and semantically clear alternative to plain objects.
+
+### Why It’s Important:
+
+Knowing real-world applications of Maps and Sets helps you make informed decisions about data structure selection, leading to more robust and maintainable code. It also demonstrates your ability to apply theoretical knowledge to practical software engineering problems.
