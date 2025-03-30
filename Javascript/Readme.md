@@ -2,7 +2,7 @@
 
 ## Answer:
 
-    Closures are functions that retain access to their lexical scope even when executed outside that scope. This occurs because, when a function is declared, it “closes over” the variables in its surrounding environment.
+Closures are functions that retain access to their lexical scope even when executed outside that scope. This occurs because, when a function is declared, it “closes over” the variables in its surrounding environment.
 
 ### How It Works:
 
@@ -18,7 +18,7 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ## Answer:
 
-    The event loop is the mechanism that allows JavaScript to handle asynchronous operations while remaining single-threaded.
+The event loop is the mechanism that allows JavaScript to handle asynchronous operations while remaining single-threaded.
 
 ### How It Works:
 
@@ -30,29 +30,29 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Understanding the event loop is crucial for managing asynchronous code effectively, preventing race conditions, and ensuring smooth application performance.
+Understanding the event loop is crucial for managing asynchronous code effectively, preventing race conditions, and ensuring smooth application performance.
 
 # 3. What is hoisting in JavaScript?
 
 ## Answer:
 
-    Hoisting is a behavior where variable and function declarations are moved to the top of their containing scope during the compilation phase.
+Hoisting is a behavior where variable and function declarations are moved to the top of their containing scope during the compilation phase.
 
 ### How It Works:
 
-    Variable Hoisting: Variables declared with var are hoisted and initialized to undefined, while those with let and const are hoisted but remain in a “temporal dead zone.”
+Variable Hoisting: Variables declared with var are hoisted and initialized to undefined, while those with let and const are hoisted but remain in a “temporal dead zone.”
 
 - Function Hoisting: Function declarations are hoisted completely, meaning you can call them before they appear in the code.
 
 ### Why It’s Important:
 
-    Knowing hoisting helps avoid unexpected behaviors, such as accessing variables before initialization, and encourages cleaner coding practices.
+Knowing hoisting helps avoid unexpected behaviors, such as accessing variables before initialization, and encourages cleaner coding practices.
 
 # 4. What is the ‘this’ keyword in JavaScript, and how does its context change?
 
 ## Answer:
 
-    The this keyword refers to the context in which a function is executed, and its value is determined by how the function is called.
+The this keyword refers to the context in which a function is executed, and its value is determined by how the function is called.
 
 ### How It Works:
 
@@ -66,13 +66,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Correct usage of this is essential for object-oriented programming and for ensuring functions behave as expected when passed around as callbacks.
+Correct usage of this is essential for object-oriented programming and for ensuring functions behave as expected when passed around as callbacks.
 
 # 5. What are the differences between var, let, and const?
 
 ## Answer:
 
-    var, let, and const are used for variable declaration, but they differ in scope, hoisting, and mutability.
+var, let, and const are used for variable declaration, but they differ in scope, hoisting, and mutability.
 
 ### How It Works:
 
@@ -84,13 +84,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Choosing the correct declaration helps prevent bugs related to variable scope and reassignment, leading to more predictable and maintainable code.
+Choosing the correct declaration helps prevent bugs related to variable scope and reassignment, leading to more predictable and maintainable code.
 
 # 6. What is prototypal inheritance in JavaScript?
 
 ## Answer:
 
-    Prototypal inheritance allows objects to inherit properties and methods from other objects.
+Prototypal inheritance allows objects to inherit properties and methods from other objects.
 
 ### How It Works:
 
@@ -100,13 +100,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    It enables code reuse and the creation of complex object hierarchies without the rigidity of classical inheritance, supporting flexible and dynamic designs.
+It enables code reuse and the creation of complex object hierarchies without the rigidity of classical inheritance, supporting flexible and dynamic designs.
 
 # 7. How do promises work in JavaScript, and what are async/await?
 
 ## Answer:
 
-    Promises are objects representing the eventual completion or failure of asynchronous operations, while async/await is syntactic sugar that makes working with promises easier.
+Promises are objects representing the eventual completion or failure of asynchronous operations, while async/await is syntactic sugar that makes working with promises easier.
 
 ### How It Works:
 
@@ -124,13 +124,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    These constructs simplify the handling of asynchronous operations, making code more maintainable and less error-prone compared to nested callbacks.
+These constructs simplify the handling of asynchronous operations, making code more maintainable and less error-prone compared to nested callbacks.
 
 # 8. What is the difference between synchronous and asynchronous code?
 
 ## Answer:
 
-    Synchronous code executes sequentially, blocking further execution until each operation completes, whereas asynchronous code allows multiple operations to occur without blocking the main thread.
+Synchronous code executes sequentially, blocking further execution until each operation completes, whereas asynchronous code allows multiple operations to occur without blocking the main thread.
 
 ### How It Works:
 
@@ -140,13 +140,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Understanding these paradigms is key to writing performant JavaScript applications, especially when dealing with I/O-bound tasks and user interactions.
+Understanding these paradigms is key to writing performant JavaScript applications, especially when dealing with I/O-bound tasks and user interactions.
 
 # 9. What are higher-order functions in JavaScript?
 
 ## Answer:
 
-    Higher-order functions are functions that can take other functions as arguments and/or return them as values.
+Higher-order functions are functions that can take other functions as arguments and/or return them as values.
 
 ### How It Works:
 
@@ -156,13 +156,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    They are a key aspect of functional programming in JavaScript, promoting code reuse, modularity, and clearer abstraction of operations.
+They are a key aspect of functional programming in JavaScript, promoting code reuse, modularity, and clearer abstraction of operations.
 
 # 10. What is event delegation in JavaScript?
 
 ## Answer:
 
-    Event delegation is a technique that leverages event bubbling to handle events at a higher level in the DOM rather than attaching individual event listeners to each element.
+Event delegation is a technique that leverages event bubbling to handle events at a higher level in the DOM rather than attaching individual event listeners to each element.
 
 ### How It Works:
 
@@ -172,13 +172,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    It improves performance by reducing the number of event listeners and simplifies dynamic element management, especially in lists or tables.
+It improves performance by reducing the number of event listeners and simplifies dynamic element management, especially in lists or tables.
 
 # 11. What is garbage collection in JavaScript, and how does it work?
 
 ## Answer:
 
-    Garbage collection is an automatic memory management process that reclaims memory occupied by objects that are no longer reachable.
+Garbage collection is an automatic memory management process that reclaims memory occupied by objects that are no longer reachable.
 
 ### How It Works:
 
@@ -188,13 +188,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Efficient garbage collection helps maintain optimal memory usage and performance, preventing memory leaks in long-running applications.
+Efficient garbage collection helps maintain optimal memory usage and performance, preventing memory leaks in long-running applications.
 
 # 12. What are modules in JavaScript, and how do they work in ES6?
 
 ## Answer:
 
-    Modules in JavaScript allow code to be organized into separate, reusable files with their own scope. ES6 modules use import and export statements for this purpose.
+Modules in JavaScript allow code to be organized into separate, reusable files with their own scope. ES6 modules use import and export statements for this purpose.
 
 ### How It Works:
 
@@ -204,13 +204,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Modules improve code organization, reduce global namespace pollution, and facilitate maintainability and reuse in large applications.
+Modules improve code organization, reduce global namespace pollution, and facilitate maintainability and reuse in large applications.
 
 # 13. What are debouncing and throttling, and why are they useful?
 
 ## Answer:
 
-    Debouncing and throttling are techniques used to control the rate at which functions are executed, especially in response to high-frequency events.
+Debouncing and throttling are techniques used to control the rate at which functions are executed, especially in response to high-frequency events.
 
 ### How It Works:
 
@@ -220,13 +220,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    They help improve performance and user experience by reducing unnecessary function calls in scenarios like window resizing, scrolling, or keypress events.
+They help improve performance and user experience by reducing unnecessary function calls in scenarios like window resizing, scrolling, or keypress events.
 
 # 14. What is the purpose of strict mode in JavaScript?
 
 ## Answer:
 
-    Strict mode is a way to opt into a restricted variant of JavaScript that catches common coding errors and “unsafe” actions.
+Strict mode is a way to opt into a restricted variant of JavaScript that catches common coding errors and “unsafe” actions.
 
 ### How It Works:
 
@@ -236,13 +236,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    It helps developers write cleaner, more robust code and avoid pitfalls that could lead to bugs or security vulnerabilities.
+It helps developers write cleaner, more robust code and avoid pitfalls that could lead to bugs or security vulnerabilities.
 
 # 15. What is immutability in JavaScript, and why is it important?
 
 ## Answer:
 
-    Immutability refers to the idea that once a data structure is created, it cannot be changed. Instead, modifications result in a new data structure.
+Immutability refers to the idea that once a data structure is created, it cannot be changed. Instead, modifications result in a new data structure.
 
 ### How It Works:
 
@@ -252,13 +252,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Immutability leads to predictable code behavior, easier debugging, and can improve performance in certain scenarios by enabling optimizations like shallow comparisons.
+Immutability leads to predictable code behavior, easier debugging, and can improve performance in certain scenarios by enabling optimizations like shallow comparisons.
 
 # 16. What are the different ways to create objects in JavaScript?
 
 ## Answer:
 
-    JavaScript provides several patterns for object creation, each offering its own benefits for structure and inheritance.
+JavaScript provides several patterns for object creation, each offering its own benefits for structure and inheritance.
 
 ### How It Works:
 
@@ -272,13 +272,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Understanding these methods helps in choosing the best approach based on requirements like inheritance, readability, and performance.
+Understanding these methods helps in choosing the best approach based on requirements like inheritance, readability, and performance.
 
 # 17. What is currying in JavaScript, and how is it useful?
 
 ## Answer:
 
-    Currying is a technique where a function that takes multiple arguments is transformed into a sequence of functions, each taking a single argument.
+Currying is a technique where a function that takes multiple arguments is transformed into a sequence of functions, each taking a single argument.
 
 ### How It Works:
 
@@ -288,13 +288,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Currying improves code modularity and reusability by enabling partial application, where you can fix some arguments and generate specialized functions for repeated use.
+Currying improves code modularity and reusability by enabling partial application, where you can fix some arguments and generate specialized functions for repeated use.
 
 # 18. Can you explain memoization in JavaScript?
 
 ## Answer:
 
-    Memoization is an optimization technique that caches the results of function calls to avoid repeated computations for the same inputs.
+Memoization is an optimization technique that caches the results of function calls to avoid repeated computations for the same inputs.
 
 ### How It Works:
 
@@ -304,13 +304,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Memoization can significantly boost performance in scenarios involving expensive or repetitive computations, such as in recursive algorithms or processing large data sets.
+Memoization can significantly boost performance in scenarios involving expensive or repetitive computations, such as in recursive algorithms or processing large data sets.
 
 # 19. What new features did ES6 introduce, and why are they significant?
 
 ## Answer:
 
-    ES6 (ECMAScript 2015) introduced many features that modernize JavaScript development and improve code quality.
+ES6 (ECMAScript 2015) introduced many features that modernize JavaScript development and improve code quality.
 
 ### How It Works:
 
@@ -326,13 +326,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    These features enhance readability, maintainability, and scalability, making it easier to write modern, efficient JavaScript code.
+These features enhance readability, maintainability, and scalability, making it easier to write modern, efficient JavaScript code.
 
 # 20. What is the module pattern in JavaScript, and how does it work?
 
 ## Answer:
 
-    The module pattern is a design pattern used to encapsulate code into self-contained units, helping to avoid polluting the global namespace.
+The module pattern is a design pattern used to encapsulate code into self-contained units, helping to avoid polluting the global namespace.
 
 ### How It Works:
 
@@ -342,13 +342,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    The module pattern promotes better organization, encapsulation, and maintainability, especially in larger codebases where managing scope and dependencies is crucial.
+The module pattern promotes better organization, encapsulation, and maintainability, especially in larger codebases where managing scope and dependencies is crucial.
 
 # 21. What are callback functions, and how do they differ from promises and async/await?
 
 ## Answer:
 
-    Callback functions are functions passed as arguments to other functions and are executed after the completion of a task. They form the basis of asynchronous programming in JavaScript.
+Callback functions are functions passed as arguments to other functions and are executed after the completion of a task. They form the basis of asynchronous programming in JavaScript.
 
 ### How It Works:
 
@@ -360,13 +360,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Knowing these differences helps in choosing the right approach for managing asynchronous tasks, balancing code clarity with functionality.
+Knowing these differences helps in choosing the right approach for managing asynchronous tasks, balancing code clarity with functionality.
 
 # 22. What is the difference between == and === in JavaScript?
 
 ## Answer:
 
-    The == (loose equality) and === (strict equality) operators compare values in JavaScript, but they do so differently.
+The == (loose equality) and === (strict equality) operators compare values in JavaScript, but they do so differently.
 
 ### How It Works:
 
@@ -376,13 +376,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Using strict equality (===) reduces unexpected behavior caused by implicit type conversion and is generally considered a best practice for more predictable code.
+Using strict equality (===) reduces unexpected behavior caused by implicit type conversion and is generally considered a best practice for more predictable code.
 
 # 23. What are Symbols in JavaScript, and what are they used for?
 
 ## Answer:
 
-    Symbols are a new primitive type introduced in ES6 that represent unique and immutable identifiers.
+Symbols are a new primitive type introduced in ES6 that represent unique and immutable identifiers.
 
 ### How It Works:
 
@@ -392,13 +392,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Symbols help prevent naming conflicts in large codebases and libraries, ensuring that internal object properties remain private and non-clashing.
+Symbols help prevent naming conflicts in large codebases and libraries, ensuring that internal object properties remain private and non-clashing.
 
 # 24. How do you deep clone an object in JavaScript?
 
 ## Answer:
 
-    Deep cloning creates a complete copy of an object, including nested objects, so that changes to the clone do not affect the original.
+Deep cloning creates a complete copy of an object, including nested objects, so that changes to the clone do not affect the original.
 
 ### How It Works:
 
@@ -410,13 +410,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Deep cloning is essential when you need to work with independent copies of complex data structures without unintentional side effects from shared references.
+Deep cloning is essential when you need to work with independent copies of complex data structures without unintentional side effects from shared references.
 
 # 25. What is event propagation (capturing and bubbling) in JavaScript?
 
 ## Answer:
 
-    Event propagation describes the order in which events are received on nested elements in the DOM.
+Event propagation describes the order in which events are received on nested elements in the DOM.
 
 ### How It Works:
 
@@ -428,13 +428,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Understanding event propagation allows developers to implement event delegation effectively and control how events are handled, avoiding conflicts and improving performance.
+Understanding event propagation allows developers to implement event delegation effectively and control how events are handled, avoiding conflicts and improving performance.
 
 # 26. What is the difference between function declarations and function expressions?
 
 ## Answer:
 
-    Function declarations and expressions are two ways to define functions in JavaScript, and they differ in hoisting and usage.
+Function declarations and expressions are two ways to define functions in JavaScript, and they differ in hoisting and usage.
 
 ### How It Works:
 
@@ -452,13 +452,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Knowing the differences ensures you structure your code correctly, avoid hoisting pitfalls, and choose the right form based on readability and scope management.
+Knowing the differences ensures you structure your code correctly, avoid hoisting pitfalls, and choose the right form based on readability and scope management.
 
 # 27. How do you handle errors in JavaScript?
 
 ## Answer:
 
-    Error handling in JavaScript ensures that runtime errors are managed gracefully, improving application robustness.
+Error handling in JavaScript ensures that runtime errors are managed gracefully, improving application robustness.
 
 ### How It Works:
 
@@ -470,13 +470,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Effective error handling prevents application crashes, allows for debugging and logging, and improves the user experience by providing meaningful feedback when issues occur.
+Effective error handling prevents application crashes, allows for debugging and logging, and improves the user experience by providing meaningful feedback when issues occur.
 
 # 28. What are service workers, and how are they used in web applications?
 
 ## Answer:
 
-    Service workers are scripts that run in the background, separate from a web page, enabling features like offline support, background sync, and push notifications.
+Service workers are scripts that run in the background, separate from a web page, enabling features like offline support, background sync, and push notifications.
 
 ### How It Works:
 
@@ -488,13 +488,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    They enhance the performance and reliability of web applications, especially for progressive web apps (PWAs), by ensuring that content is available even with limited or no network connectivity.
+They enhance the performance and reliability of web applications, especially for progressive web apps (PWAs), by ensuring that content is available even with limited or no network connectivity.
 
 # 29. What are Web Workers, and how do they help improve performance in web applications?
 
 ## Answer:
 
-    Web Workers allow JavaScript to run in parallel on background threads, enabling heavy computations to be performed without blocking the main UI thread.
+Web Workers allow JavaScript to run in parallel on background threads, enabling heavy computations to be performed without blocking the main UI thread.
 
 ### How It Works:
 
@@ -506,13 +506,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Offloading compute-intensive tasks to Web Workers helps maintain a smooth and responsive user interface, especially in applications with heavy data processing.
+Offloading compute-intensive tasks to Web Workers helps maintain a smooth and responsive user interface, especially in applications with heavy data processing.
 
 # 30. What design patterns are commonly used in JavaScript?
 
 ## Answer:
 
-    Several design patterns in JavaScript help organize code, enhance reusability, and maintainability.
+Several design patterns in JavaScript help organize code, enhance reusability, and maintainability.
 
 ### How It Works:
 
@@ -526,13 +526,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Familiarity with these patterns allows developers to write modular, scalable, and maintainable code that can evolve with complex application requirements.
+Familiarity with these patterns allows developers to write modular, scalable, and maintainable code that can evolve with complex application requirements.
 
 # 31. How does the JavaScript execution context and scope chain work?
 
 ## Answer:
 
-    The execution context is the environment in which JavaScript code is evaluated and executed, and it defines how variables and functions are accessible.
+The execution context is the environment in which JavaScript code is evaluated and executed, and it defines how variables and functions are accessible.
 
 ### How It Works:
 
@@ -544,13 +544,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Understanding execution contexts and scope chains is critical for managing variable lifetimes, avoiding naming conflicts, and debugging issues related to variable access.
+Understanding execution contexts and scope chains is critical for managing variable lifetimes, avoiding naming conflicts, and debugging issues related to variable access.
 
 # 32. What is an Immediately Invoked Function Expression (IIFE), and why is it useful?
 
 ## Answer:
 
-    An IIFE is a function that is defined and executed immediately after its creation.
+An IIFE is a function that is defined and executed immediately after its creation.
 
 ### How It Works:
 
@@ -560,13 +560,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    IIFEs help prevent global scope pollution, enable data privacy, and are often used to initialize modules or execute code that requires an isolated environment.
+IIFEs help prevent global scope pollution, enable data privacy, and are often used to initialize modules or execute code that requires an isolated environment.
 
 # 33. How do you optimize JavaScript performance in web applications?
 
 ## Answer:
 
-    Optimizing JavaScript performance involves both code-level improvements and strategic architectural decisions.
+Optimizing JavaScript performance involves both code-level improvements and strategic architectural decisions.
 
 ### How It Works:
 
@@ -580,13 +580,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Performance optimizations lead to faster load times, smoother user experiences, and more efficient resource usage, all of which are critical for high-quality web applications.
+Performance optimizations lead to faster load times, smoother user experiences, and more efficient resource usage, all of which are critical for high-quality web applications.
 
 # 34. What are common security concerns in JavaScript, and how do you mitigate them?
 
 ## Answer:
 
-    JavaScript applications face several security risks that must be managed carefully to protect users and data.
+JavaScript applications face several security risks that must be managed carefully to protect users and data.
 
 ### How It Works:
 
@@ -598,13 +598,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Addressing security vulnerabilities is crucial for maintaining user trust, protecting data, and ensuring regulatory compliance in web applications.
+Addressing security vulnerabilities is crucial for maintaining user trust, protecting data, and ensuring regulatory compliance in web applications.
 
 # 35. What is the difference between microtasks and macrotasks in the JavaScript event loop?
 
 ## Answer:
 
-    Microtasks and macrotasks represent two queues of asynchronous operations that the JavaScript event loop processes differently.
+Microtasks and macrotasks represent two queues of asynchronous operations that the JavaScript event loop processes differently.
 
 ### How It Works:
 
@@ -614,13 +614,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    Knowing the distinction helps in understanding the order of execution in asynchronous JavaScript, which is crucial for avoiding race conditions and ensuring predictable code behavior.
+Knowing the distinction helps in understanding the order of execution in asynchronous JavaScript, which is crucial for avoiding race conditions and ensuring predictable code behavior.
 
 # 36. How do generators and iterators work in JavaScript?
 
 ## Answer:
 
-    Generators and iterators are tools for managing sequences of values and controlling execution flow.
+Generators and iterators are tools for managing sequences of values and controlling execution flow.
 
 ### How It Works:
 
@@ -630,13 +630,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    They enable lazy evaluation and efficient handling of large datasets or infinite sequences, and can simplify asynchronous flows by allowing sequential execution of asynchronous operations.
+They enable lazy evaluation and efficient handling of large datasets or infinite sequences, and can simplify asynchronous flows by allowing sequential execution of asynchronous operations.
 
 # 37. What are Proxies and the Reflect API in JavaScript, and how are they used?
 
 ## Answer:
 
-    Proxies and the Reflect API allow you to intercept and customize fundamental operations on objects.
+Proxies and the Reflect API allow you to intercept and customize fundamental operations on objects.
 
 ### How It Works:
 
@@ -646,13 +646,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    They empower developers to implement features like data validation, logging, or creating virtualized objects, enabling more dynamic and flexible code patterns.
+They empower developers to implement features like data validation, logging, or creating virtualized objects, enabling more dynamic and flexible code patterns.
 
 # 38. How do dynamic imports and code splitting work, and why are they useful in modern web applications?
 
 ## Answer:
 
-    Dynamic imports and code splitting are techniques to optimize the loading performance of web applications by loading JavaScript modules on demand.
+Dynamic imports and code splitting are techniques to optimize the loading performance of web applications by loading JavaScript modules on demand.
 
 ### How It Works:
 
@@ -662,13 +662,13 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    They improve initial load times, reduce memory usage, and enhance the user experience by loading only the code necessary for the current operation, which is especially critical for large-scale applications.
+They improve initial load times, reduce memory usage, and enhance the user experience by loading only the code necessary for the current operation, which is especially critical for large-scale applications.
 
 # 39. How does functional programming manifest in JavaScript, and what are some common functional techniques?
 
 ## Answer:
 
-    Functional programming in JavaScript emphasizes the use of pure functions, immutability, and higher-order functions to create predictable and modular code.
+Functional programming in JavaScript emphasizes the use of pure functions, immutability, and higher-order functions to create predictable and modular code.
 
 ## How It Works:
 
@@ -680,57 +680,57 @@ Closures enable data encapsulation, allow for private variables, and are fundame
 
 ### Why It’s Important:
 
-    These techniques lead to cleaner, more testable code, reduce the likelihood of bugs caused by state changes, and can improve maintainability and scalability in complex applications.
+These techniques lead to cleaner, more testable code, reduce the likelihood of bugs caused by state changes, and can improve maintainability and scalability in complex applications.
 
 # 40. What are some common array functions in JavaScript, and how do they work?
 
 ## Answer:
 
-    JavaScript arrays come with a rich set of built-in methods that simplify data manipulation. Key functions include:
+JavaScript arrays come with a rich set of built-in methods that simplify data manipulation. Key functions include:
 
 - map():
 
-* How It Works: Creates a new array by applying a provided function to every element in the original array.
+  - How It Works: Creates a new array by applying a provided function to every element in the original array.
 
-* Example Use: Transforming an array of numbers by doubling each value.
+  - Example Use: Transforming an array of numbers by doubling each value.
 
 - filter():
 
-* How It Works: Returns a new array containing only the elements that satisfy a given condition (i.e., the callback function returns true).
+  - How It Works: Returns a new array containing only the elements that satisfy a given condition (i.e., the callback function returns true).
 
-* Example Use: Extracting all even numbers from an array.
+  - Example Use: Extracting all even numbers from an array.
 
 - reduce():
 
-* How It Works: Reduces an array to a single value by iteratively combining elements using a provided reducer function and an initial value.
+  - How It Works: Reduces an array to a single value by iteratively combining elements using a provided reducer function and an initial value.
 
-* Example Use: Summing all the numbers in an array.
+  - Example Use: Summing all the numbers in an array.
 
 - forEach():
 
-* How It Works: Executes a provided function once for each array element without returning a new array.
+  - How It Works: Executes a provided function once for each array element without returning a new array.
 
-* Example Use: Logging each element to the console.
+  - Example Use: Logging each element to the console.
 
 - find() and findIndex():
 
-* How They Work: find() returns the first element that satisfies a condition, whereas findIndex() returns its index.
+  - How They Work: find() returns the first element that satisfies a condition, whereas findIndex() returns its index.
 
 - sort():
 
-* How It Works: Sorts the elements of an array in place, optionally taking a compare function to determine order.
+  - How It Works: Sorts the elements of an array in place, optionally taking a compare function to determine order.
 
-* Example Use: Sorting an array of objects by a specific property.
+  - Example Use: Sorting an array of objects by a specific property.
 
 ### Why It’s Important:
 
-    Mastering these functions leads to more concise, readable, and functional code while avoiding manual loops and mutable state, which is essential in modern JavaScript development.
+Mastering these functions leads to more concise, readable, and functional code while avoiding manual loops and mutable state, which is essential in modern JavaScript development.
 
 # 41. Can you give an example of using array functions to solve an algorithm problem, such as flattening an array?
 
 ## Answer:
 
-    Flattening an array means converting an array of arrays into a single array containing all the elements. One common solution uses the reduce() function.
+Flattening an array means converting an array of arrays into a single array containing all the elements. One common solution uses the reduce() function.
 
 ### How It Works:
 
@@ -759,13 +759,13 @@ const flat = flattenArray(nestedArray); // [1, 2, 3, 4, 5, 6]
 
 ### Why It’s Important:
 
-    This example demonstrates how array functions enable solving common algorithmic problems succinctly. It also shows the power of recursion combined with higher-order functions, a pattern frequently encountered in functional programming with JavaScript.
+This example demonstrates how array functions enable solving common algorithmic problems succinctly. It also shows the power of recursion combined with higher-order functions, a pattern frequently encountered in functional programming with JavaScript.
 
 # 42. What are classes in JavaScript, and how do they compare to constructor functions?
 
 ## Answer:
 
-    Classes in JavaScript, introduced in ES6, provide a clear, concise syntax for creating objects and handling inheritance. They are essentially syntactical sugar over the prototypal inheritance model.
+Classes in JavaScript, introduced in ES6, provide a clear, concise syntax for creating objects and handling inheritance. They are essentially syntactical sugar over the prototypal inheritance model.
 
 ### How It Works:
 
@@ -784,9 +784,11 @@ return `Hello, my name is ${this.name}.`;
 }
 
 const alice = new Person('Alice', 30);
-Inheritance:
+```
 
+- Inheritance:
 
+```
 class Employee extends Person {
 constructor(name, age, position) {
 super(name, age);
