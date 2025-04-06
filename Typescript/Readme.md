@@ -477,3 +477,310 @@ const c: Coordinate = p; // Valid because the structures match.
 ### Why It’s Important:
 
 Understanding TypeScript’s structural typing model helps prevent unexpected type mismatches and improves interoperability between different parts of your code. It also highlights the flexibility and potential pitfalls when comparing types solely by their structure.
+
+# Question 16: What is the rationale behind implementing a TypeScript compiler in Golang?
+
+## Answer:
+
+A TypeScript compiler implemented in Golang represents an effort to leverage Go’s performance, concurrency, and simplicity for improved build times and lower resource consumption.
+
+### How It Works:
+
+- Performance Benefits: Golang is known for its fast execution and efficient memory management, which can lead to quicker compilation times compared to the traditional TypeScript compiler written in TypeScript/JavaScript.
+
+- Concurrency Model: Go’s built-in support for concurrency with goroutines and channels can be used to parallelize various compiler tasks, such as incremental compilation and file watching.
+
+- Static Binary Distribution: A compiler built in Go can be compiled into a static binary, simplifying deployment and integration in diverse environments.
+
+### Why It’s Important:
+
+This approach can improve developer experience by reducing build times and providing more predictable performance in large-scale projects. It also highlights how leveraging different programming languages for compiler development can bring new optimizations and easier integration into build pipelines.
+
+# Question 17: How does the performance of the Golang-based TypeScript compiler compare to the traditional TypeScript compiler?
+
+## Answer:
+
+The Golang-based TypeScript compiler aims to deliver significant performance improvements, particularly in areas such as incremental compilation and resource utilization.
+
+### How It Works:
+
+- Faster Compilation: Thanks to Go’s efficient execution, the new compiler can potentially offer faster start-up times and reduced overall compilation latency.
+
+- Incremental Compilation: By using Go’s concurrency primitives, the compiler can more effectively process only the changed files, minimizing unnecessary work.
+
+- Resource Efficiency: Go’s memory management and the possibility of producing a single binary help reduce overhead, particularly in continuous integration environments or large codebases.
+
+### Why It’s Important:
+
+Faster and more resource-efficient compilation directly impacts developer productivity, allowing for quicker iteration and reduced feedback loops. This is especially critical in large projects or teams that rely on rapid builds.
+
+# Question 18: What challenges might arise when porting or reimplementing the TypeScript compiler in Golang?
+
+## Answer:
+
+While a Go-based TypeScript compiler offers several advantages, there are also challenges to address during its development.
+
+### How It Works:
+
+- Feature Parity: Achieving full compatibility with the existing TypeScript language features and ecosystem can be challenging when reimplementing complex type-checking and transformation logic.
+
+- Library Ecosystem: The traditional TypeScript compiler leverages many libraries and utilities from the JavaScript ecosystem; reimplementing or interfacing with these in Go may require significant effort.
+
+- Error Messaging & Developer Ergonomics: Providing the same level of detailed and actionable error messages that developers expect from the TypeScript compiler is nontrivial when using a different language for implementation.
+
+- Maintenance and Updates: Keeping pace with updates in the TypeScript language specification while maintaining a separate codebase in Go can increase maintenance overhead.
+
+### Why It’s Important:
+
+Understanding these challenges is crucial for evaluating trade-offs between performance gains and long-term maintainability. It demonstrates an awareness of both engineering benefits and potential pitfalls when adopting new technologies.
+
+# Question 19: How does the Go-based compiler handle incremental compilation and watch mode compared to the traditional compiler?
+
+## Answer:
+
+Incremental compilation and watch mode are key areas where a Golang-based compiler can leverage Go’s strengths to enhance performance and responsiveness.
+
+### How It Works:
+
+- Efficient File Watching: Go’s standard library and concurrency model enable efficient file system monitoring and event handling, allowing the compiler to detect changes rapidly.
+
+- Parallel Processing: Using goroutines, the compiler can distribute work (such as parsing and type-checking changed files) concurrently, thus reducing the overall recompilation time.
+
+- Build Metadata: Similar to the traditional compiler’s approach, the Go-based version maintains build metadata to determine which files have changed and require recompilation.
+
+### Why It’s Important:
+
+Faster incremental compilation and responsive watch mode improve the development cycle by reducing downtime and feedback delays. This is especially beneficial in large codebases where every second counts during iterative development.
+
+# Question 20: What potential benefits does static binary distribution of a Golang-based TypeScript compiler offer to development teams?
+
+## Answer:
+
+One of the advantages of using Golang for compiler implementation is the ability to produce a static binary that bundles all dependencies into one executable.
+
+### How It Works:
+
+- Single Executable: The Go toolchain compiles applications into single, self-contained binaries that run on the target platform without requiring external runtime dependencies.
+
+- Simplified Deployment: This greatly simplifies the installation process in CI/CD pipelines, containerized environments, and cross-platform development scenarios.
+
+- Consistency: Static binaries help ensure that the compiler behaves consistently across different environments, reducing the “it works on my machine” problem.
+
+### Why It’s Important:
+
+A static binary distribution reduces setup complexity, minimizes runtime errors related to missing dependencies, and provides a more predictable build environment. This leads to smoother integration and deployment, particularly in diverse and scalable development workflows.
+
+# Question 21: What are the core primitive and special types in TypeScript (e.g., string, number, boolean, any, unknown, never, void), and how do they differ?
+
+## Answer:
+
+### How It Works
+
+- Primitives:
+
+  string, number, boolean, bigint, symbol, null, undefined mirror JavaScript primitives with static typing.
+
+- Special Types:
+
+  - any: Opts out of type checking—any value can be assigned.
+
+  - unknown: Similar to any but type-safe—you must narrow it before use.
+
+  - never: Represents values that never occur (e.g., a function that always throws).
+
+  - void: Typically used as the return type of functions that don’t return a value.
+
+### Best Practices
+
+- Avoid any: Reserve for gradual migration or when interfacing with untyped code.
+
+- Prefer unknown over any: Forces you to explicitly handle and narrow types.
+
+- Use never: To catch unreachable code paths (e.g., exhaustive switch statements).
+
+- Use void: Only for callbacks or functions that intentionally don’t return anything.
+
+### Benefits
+
+- Type Safety: Prevents many runtime errors by catching type mismatches at compile time.
+
+- Self‑Documenting Code: Clearer intent when a function returns nothing (void) versus never returning (never).
+
+- Controlled Flexibility: unknown lets you accept arbitrary input but forces you to validate it before use.
+
+# Question 22: How do union (A | B) and intersection (A & B) types work in TypeScript, and when would you use each?
+
+## Answer:
+
+### How It Works
+
+- Union (A | B): A value may be of type A or type B. You must narrow before accessing members.
+
+- Intersection (A & B): A value must satisfy both A and B, merging properties of each.
+
+### Best Practices
+
+- Union Types: Use for APIs that accept multiple distinct shapes (e.g., string | number inputs). Always guard with typeof, in, or custom type guards.
+
+- Intersection Types: Use to compose behaviors or capabilities (e.g., Serializable & Loggable) rather than duplicating interfaces.
+
+### Benefits
+
+- Flexibility (Union): Model functions or data that can legitimately take multiple forms.
+
+- Reusability (Intersection): Build complex types by combining simpler ones without inheritance.
+
+# Question 23: What are literal types and how do they enable more precise typing?
+
+## Answer:
+
+### How It Works
+
+- String/Number Literals: Restrict a variable to a specific value or set of values:
+
+```
+type Direction = 'up' | 'down' | 'left' | 'right';
+let dir: Direction = 'up';
+```
+
+- Boolean Literals: true or false as types for flags.
+
+### Best Practices
+
+- Use literal unions for configuration options (e.g., HTTP methods 'GET' | 'POST').
+
+- Combine with enums or as const for auto‑inferred literal arrays.
+
+### Benefits
+
+- Compile‑Time Validation: Prevents invalid string/number values.
+
+- IDE Autocomplete: Improves developer experience by suggesting only valid literals.
+
+# Question 24: What are index types (keyof, indexed access T[K]) and mapped types ({ [P in K]: ... }), and how do they work together?
+
+## Answer:
+
+### How It Works
+
+- keyof T: Yields a union of property names of T.
+
+- Indexed Access T[K]: Looks up the type of property K in T.
+
+- Mapped Types: Transform each property in a union:
+
+```
+type Readonly<T> = { readonly [P in keyof T]: T[P] };
+```
+
+### Best Practices
+
+- Use keyof to write generic functions that reflect object keys.
+
+- Leverage mapped types (Partial, Required, Pick, Omit) for common transformations instead of reinventing them.
+
+### Benefits
+
+- DRY: Avoids repeating property names when creating variants of an interface.
+
+- Maintainability: Changes to original types automatically propagate to derived types.
+
+# Question 25: How do conditional types (T extends U ? X : Y) work, and what patterns do they enable?
+
+## Answer:
+
+### How It Works
+
+- Syntax: type Result<T> = T extends SomeType ? TrueCase : FalseCase.
+
+- Distributive Behavior: When T is a union, the conditional applies to each member individually.
+
+### Best Practices
+
+- Use conditional types for type transformations (e.g., Exclude, Extract).
+
+- Avoid overly complex nested conditions—keep type logic understandable.
+
+### Benefits
+
+- Powerful Abstraction: Create utility types that adapt based on input types.
+
+- Type‑Level Programming: Enables compile‑time computation and enforcement of constraints.
+
+# Question 26: What are discriminated (tagged) unions, and how do they simplify type narrowing?
+
+## Answer:
+
+### How It Works
+
+- Define a common literal property (the “discriminator”) in each variant:
+
+```
+interface Circle { kind: 'circle'; radius: number; }
+interface Square { kind: 'square'; side: number; }
+type Shape = Circle | Square;
+```
+
+- Switch on kind to narrow to the correct interface.
+
+### Best Practices
+
+- Always include a kind (or similar) literal field in each variant.
+
+- Use exhaustive switch statements and include a never‐typed default case to catch missing variants.
+
+### Benefits
+
+- Safe Narrowing: TypeScript knows exactly which variant you’re handling, preventing runtime errors.
+
+- Extensibility: Easy to add new variants without breaking existing code.
+
+# Question 27: What are utility types like Partial, Required, Pick, Omit, and Record, and when should you use them?
+
+##Answer:
+
+### How It Works
+
+- Partial<T>: Makes all properties in T optional.
+
+- Required<T>: Makes all properties in T required.
+
+- Pick<T, K>: Selects a subset K of properties from T.
+
+- Omit<T, K>: Removes properties K from T.
+
+- Record<K, T>: Creates an object type with keys K and values of type T.
+
+### Best Practices
+
+- Prefer built‑in utilities over custom mapped types for common scenarios.
+
+- Combine utilities for complex transformations (e.g., Partial<Pick<T, K>>).
+
+### Benefits
+
+- Consistency: Ensures transformations follow the same logic across your codebase.
+
+- Conciseness: Reduces boilerplate and potential for mistakes when reshaping types.
+
+# Question 28: How do type assertions (as Type) and non‑null assertions (!) work, and what are the risks?
+
+## Answer:
+
+### How It Works
+
+- Type Assertion (as Type): Tells the compiler to treat a value as a specific type without performing checks.
+
+- Non‑Null Assertion (!): Asserts that a value is neither null nor undefined.
+
+### Best Practices
+
+- Minimize Assertions: Use only when you have external guarantees the compiler cannot infer.
+
+- Validate at Runtime: If using assertions, add runtime checks to avoid unexpected failures.
+
+### Benefits
+
+- Flexibility: Allows you to work around limitations in inference or third‑party typings.
+
+- Incremental Migration: Helpful when migrating a JavaScript codebase to TypeScript by gradually adding types.
