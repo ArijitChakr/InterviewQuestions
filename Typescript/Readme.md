@@ -737,7 +737,7 @@ type Shape = Circle | Square;
 
 # Question 27: What are utility types like Partial, Required, Pick, Omit, and Record, and when should you use them?
 
-##Answer:
+## Answer:
 
 ### How It Works
 
