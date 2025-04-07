@@ -1390,7 +1390,7 @@ Global state tools allow you to store and update shared state outside of individ
   | Zustand | Very Low | ✅ (built-in) | Excellent | Lightweight | Very Low |
   | MobX | Low | ✅ (reactive) | Excellent | Moderate | Moderate |
 
-####Best Practices:
+#### Best Practices:
 
 - Keep global state minimal; prefer local state when possible.
 
@@ -1508,22 +1508,779 @@ Testing React components ensures your UI behaves as expected, guards against reg
 
 # Advanced Level
 
-## Explain the React reconciliation algorithm (diffing) and how keys affect it.
+## 1. Explain the React reconciliation algorithm (diffing) and how keys affect it.
 
-## What is Concurrent Mode and how does it improve UI responsiveness?
+### Answer:
 
-## How do Suspense and React.lazy work together for data fetching and code‑splitting?
+React’s reconciliation algorithm, also known as the diffing algorithm, is the process React uses to efficiently update the DOM by comparing the previous and current Virtual DOM. The goal is to minimize direct DOM manipulations by making the smallest possible set of changes.
 
-## Describe server‑side rendering (SSR) with frameworks like Next.js. What are the trade‑offs?
+#### How It Works (Reconciliation Process):
 
-## How would you optimize performance in a large React application? (e.g., virtualization, memoization, windowing)
+When state or props change, React re-renders the component and creates a new Virtual DOM tree. The reconciliation algorithm then compares this new tree with the previous one to identify what changed.
 
-## Explain how you’d build a custom hook. What rules must you follow?
+- React follows these rules to perform efficient diffing:
 
-## How do you handle accessibility (a11y) in React applications?
+  - Element Type Comparison
 
-## What patterns do you use for component composition (e.g., compound components, function as child)?
+  - If the element types are different (<div> → <span>), React destroys the old node and mounts a new one.
 
-## Describe how you’d integrate React with a GraphQL API (e.g., Apollo Client, Relay).
+  - If types are the same, it updates the attributes and recursively diffs children.
 
-## How would you architect a micro‑frontend system using React? What challenges arise?
+  - Component Type Comparison
+
+  - If the component class or function changes, React unmounts the old component and mounts the new one.
+
+  - Recursive Diffing of Children
+
+  - React compares child nodes one by one.
+
+  - It assumes child order doesn't change, so it compares elements at the same index.
+
+#### Role of Keys in Reconciliation:
+
+- Keys are essential for tracking which items changed, were added, or removed when dealing with lists of elements.
+  ```
+  {items.map(item => (
+    <li key={item.id}>{item.name}</li>
+  ))}
+  ```
+- Why Keys Matter:
+
+  - Without keys (or with index as key), React compares elements by index.
+
+  - With proper keys, React can reorder items efficiently without re-rendering all of them.
+
+  - Keys help React identify which elements were changed, improving performance and avoiding UI bugs like lost focus or animation glitches.
+
+- Example:
+
+  ```
+  const list = [ 'A', 'B', 'C' ];
+  // Re-render with ['B', 'C', 'A']
+
+  // Without keys: React will assume everything changed by index.
+  // With keys: React knows 'A' moved, and 'B', 'C' are the same.
+  ```
+
+- Best Practices for Keys:
+
+  - Use stable, unique identifiers (e.g., database IDs).
+
+  - Avoid using array indexes as keys, especially in dynamic lists.
+
+  - Ensure keys are consistent between renders to prevent remounting.
+
+- Optimization Outcome:
+
+  - Prevents unnecessary DOM updates.
+
+  - Preserves component state and behavior across renders.
+
+  - Enables smoother UI updates, animations, and interactions.
+
+## 2. What is Concurrent Mode and how does it improve UI responsiveness?
+
+### Answer:
+
+Concurrent Mode is an advanced feature in React that allows rendering to be interruptible, enabling React to work on multiple tasks simultaneously. It improves UI responsiveness by making rendering non-blocking, allowing React to prioritize more important updates (like animations or input) over less urgent ones (like rendering a long list).
+
+#### How It Works:
+
+In traditional React rendering (legacy mode), the render phase is synchronous and blocking—once React starts rendering, it must finish before responding to user input or other tasks.
+
+- With Concurrent Mode:
+
+  - React’s render phase becomes interruptible.
+
+  - Rendering work is split into small units.
+
+  - React can pause work, respond to high-priority events, and resume rendering later.
+
+  - This is powered by the React scheduler, which manages task priority and time slicing.
+
+- Example:
+  Imagine you have a typing input next to a large component that fetches and displays lots of data. In legacy mode, updating that large component may block input typing.
+
+- With Concurrent Mode:
+
+  - React can pause rendering the large component
+
+  - Process the user’s keystroke first
+
+  - Then resume rendering the heavy component afterward
+
+- Enabling Concurrent Features:
+
+  - Automatic in React 18+ when using features like:
+
+  - `createRoot()` from react-dom/client
+
+  - `useTransition()`
+
+  - Suspense for data fetching
+
+  - `startTransition()`
+
+  ```
+  import { startTransition } from 'react';
+
+  startTransition(() => {
+  setSearchQuery(input); // Marked as low-priority
+  });
+  ```
+
+- Key Features of Concurrent Mode:
+  | Feature | Purpose |
+  | --- | --- |
+  | startTransition() | Marks updates as low-priority (e.g., search results) |
+  | useDeferredValue() | Defers rendering based on a lower-priority value |
+  | Suspense | Pauses rendering until async data is ready |
+  | Time slicing | Splits rendering into chunks so React can yield to more urgent tasks|
+
+#### Benefits:
+
+- Improved UI responsiveness: Input and animation stay smooth even during heavy rendering.
+
+- Prioritized updates: React can focus on urgent work first.
+
+- Better user experience: Reduces jank, freezes, and lag in the UI.
+
+- Graceful loading: Combines well with Suspense for smooth async loading flows.
+
+## 3. How do Suspense and React.lazy work together for data fetching and code‑splitting?
+
+### Answer:
+
+React.lazy and Suspense are features in React that work together to enable code-splitting and graceful loading of components or data. They help improve performance and user experience by loading only what’s necessary, while still allowing the UI to show fallback content during loading.
+
+#### How It Works
+
+1. React.lazy – Dynamic Import for Components
+
+   - Enables code-splitting at the component level using import().
+
+   - Dynamically loads the component only when it is rendered.
+
+     ```
+     import React, { lazy, Suspense } from 'react';
+
+     const Profile = lazy(() => import('./Profile'));
+
+     function App() {
+       return (
+         <Suspense fallback={<div>Loading...</div>}>
+           <Profile />
+         </Suspense>
+       );
+     }
+     ```
+
+   - React.lazy only works with default exports.
+
+2. Suspense – Handles the Loading State
+
+   - Wraps lazy components and displays fallback UI while the component is being loaded.
+
+   - Can wrap multiple lazy components or use nested Suspense for finer control.
+
+#### Use Cases
+
+| Feature                    | Purpose                           | Example                                 |
+| -------------------------- | --------------------------------- | --------------------------------------- |
+| Code-splitting             | Split bundles into smaller chunks | `React.lazy(() => import('./Chart'))`   |
+| Loading fallback           | Show spinner or skeleton on load  | `<Suspense fallback={<Loader />} />`    |
+| Async data (via libraries) | Data loading with Suspense        | react-query, Relay, React 19 (upcoming) |
+
+#### Example: Code Splitting with React.lazy
+
+    ```
+    const HeavyComponent = lazy(() => import('./HeavyComponent'));
+
+    <Suspense fallback={<div>Loading heavy component…</div>}>
+    <HeavyComponent />
+    </Suspense>
+    ```
+
+- React will:
+
+  - Pause rendering HeavyComponent
+
+  - Show fallback (Loading…)
+
+  - Replace fallback with component once loaded
+
+#### Data Fetching with Suspense (React 19 / Relay / Libraries)
+
+Although Suspense was originally built for code-splitting, newer versions of React (v19+) and libraries like Relay, React Query, or SWR allow you to suspend rendering while data is being fetched.
+
+- Example (React Query v5 + Suspense):
+
+  ````
+  const Posts = () => {
+  const { data } = useQuery(['posts'], fetchPosts, { suspense: true });
+  return <PostList posts={data} />;
+  };
+
+      <Suspense fallback={<div>Loading posts...</div>}>
+      <Posts />
+      </Suspense>
+      ```
+  ````
+
+#### Benefits
+
+- Performance optimization: Reduce initial bundle size.
+
+- User experience: Show meaningful loading indicators or skeletons.
+
+- Clean abstraction: Avoid deeply nested loading logic and spinners.
+
+- Developer ergonomics: Simple syntax for lazy loading components or data.
+
+#### Best Practices
+
+- Use React.lazy for non-critical or rarely-used components (e.g., modals, dashboards).
+
+- Wrap each lazy import in Suspense with meaningful fallbacks.
+
+- Combine with routing (React Router supports lazy routes).
+
+- For data fetching, rely on libraries that integrate with Suspense or wait for React 19’s native support.
+
+## 4. Describe server‑side rendering (SSR) with frameworks like Next.js. What are the trade‑offs?
+
+### Answer:
+
+Server-side rendering (SSR) is a technique where HTML for a React application is generated on the server for every request, rather than in the browser. Frameworks like Next.js make SSR seamless by offering built-in support to pre-render pages on the server and send them fully formed to the client.
+
+#### How SSR Works in Next.js:
+
+- A user requests a page.
+
+- The server runs the React component (usually in getServerSideProps()).
+
+- It fetches the necessary data and generates the HTML.
+
+- The HTML is sent to the browser, where React hydrates it—adds interactivity to the static content.
+
+  ```
+  // Example in Next.js using SSR
+  export async function getServerSideProps(context) {
+    const res = await fetch('https://api.example.com/posts');
+    const data = await res.json();
+
+    return { props: { posts: data } };
+  }
+
+  function Blog({ posts }) {
+    return <PostList posts={posts} />;
+  }
+  ```
+
+#### Benefits of SSR
+
+| Benefit                      | Description                                                              |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| SEO-Friendly                 | HTML is pre-rendered and crawlable by search engines.                    |
+| Faster Time-to-First-Byte    | Users get a fully rendered page instantly (especially on slow networks). |
+| Dynamic Data on Each Request | Great for pages that need fresh, per-request data (e.g., dashboards).    |
+
+#### Trade-Offs and Limitations
+
+| Trade-Off                   | Explanation                                                             |
+| --------------------------- | ----------------------------------------------------------------------- |
+| Slower Time-to-Interactive  | Initial HTML loads fast, but hydration delays interactivity.            |
+| Server Load                 | Each request triggers full rendering logic, increasing server demand.   |
+| Not Suitable for All Pages  | For static content or user-specific data, SSR may be overkill.          |
+| More Complex Dev Experience | Handling SSR-specific logic (auth, redirects, cookies) adds complexity. |
+
+#### When to Use SSR (in Next.js)
+
+- Pages that must be indexed by search engines (e.g., blogs, product pages).
+
+- Content that changes frequently or is personalized per user.
+
+- Apps where Time to First Byte (TTFB) matters more than interactivity.
+
+##### SSR Alternatives in Next.js
+
+- Method Use Case
+- Static Generation (getStaticProps) For content that doesn’t change often
+- Client-Side Rendering For user-specific, non-SEO data
+- Incremental Static Regeneration (ISR) Hybrid between static and SSR
+
+#### Best Practices
+
+- Use SSR selectively where SEO or dynamic data is critical.
+
+- Cache server responses (using CDNs or headers) to reduce load.
+
+- Avoid SSR for pages with high interactivity or frequent navigation.
+
+## 5. How would you optimize performance in a large React application? (e.g., virtualization, memoization, windowing)
+
+### Answer:
+
+Optimizing performance in a large React application involves using a combination of techniques to reduce unnecessary renders, minimize bundle sizes, and enhance perceived and actual speed. Strategies like memoization, virtualization, and windowing play a key role in making complex UIs performant and responsive.
+
+#### Key Optimization Techniques
+
+1. Memoization with React.memo, useMemo, and useCallback
+
+   - Prevents unnecessary re-renders by caching components or values.
+
+   - Useful for pure components or expensive computations.
+
+     ```
+     const MemoizedComponent = React.memo(MyComponent);
+
+     const memoizedValue = useMemo(() => computeExpensiveValue(input), [input]);
+
+     const handleClick = useCallback(() => { /* action */ }, []);
+     ```
+
+2. Virtualization / Windowing (e.g., react-window, react-virtualized)
+
+   - Renders only visible portions of large lists instead of the entire list.
+
+   - Essential for improving performance when dealing with thousands of DOM elements.
+
+     ```
+     import { FixedSizeList as List } from 'react-window';
+
+     <List height={500} itemCount={1000} itemSize={35} width={300}>
+       {({ index, style }) => <div style={style}>Row {index}</div>}
+     </List>
+     ```
+
+3. Code-Splitting & Lazy Loading
+
+   - Code-splitting reduces the initial bundle size by splitting the code into smaller chunks.
+
+   - `const LazyComponent = React.lazy(() => import('./HeavyComponent'));`
+
+4. Avoid Anonymous Functions & Inline Objects
+
+   - Avoid using anonymous functions or inline objects in event handlers and lifecycle methods.
+
+   ```
+   // BAD
+   <MyComponent onClick={() => doSomething()} />
+
+   // GOOD
+   const handleClick = useCallback(() => doSomething(), []);
+   <MyComponent onClick={handleClick} />
+   ```
+
+5. Debounce / Throttle Input Handlers
+
+   - Avoid excessive updates by debouncing or throttling heavy operations like search or scroll.
+
+   - `const debouncedSearch = useMemo(() => debounce(handleSearch, 300), []);`
+
+6. Efficient Reconciliation
+
+   - Use stable keys in lists to help React's diffing algorithm.
+
+   - Avoid using array indexes as keys.
+
+   - `{items.map(item => <Item key={item.id} {...item} />)}`
+
+7. Use the Profiler
+   - React DevTools' Profiler tab helps identify performance bottlenecks by tracking render times.
+
+#### Best Practices Summary
+
+| Technique                 | Use Case                                          |
+| ------------------------- | ------------------------------------------------- |
+| `React.memo`              | Prevent re-renders of functional components       |
+| `useMemo`, `useCallback`  | Cache computed values and stable functions        |
+| List virtualization       | Improve performance on large lists/tables         |
+| Debouncing/throttling     | Optimize user-driven events like search or scroll |
+| Lazy loading              | Reduce initial bundle size                        |
+| Static asset optimization | Compress and cache images, fonts, and media       |
+
+## 6. Explain how you’d build a custom hook. What rules must you follow?
+
+### Answer:
+
+A custom hook in React is a JavaScript function whose name starts with "use" and allows you to extract and reuse stateful logic across components. Custom hooks help keep code modular, readable, and DRY (Don't Repeat Yourself) by abstracting repeated logic into reusable functions.
+
+#### How to Build a Custom Hook
+
+- Let’s walk through an example: a useWindowWidth hook that tracks the browser’s window width.
+
+  ```
+  import { useState, useEffect } from 'react';
+
+  function useWindowWidth() {
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return width;
+  }
+  ```
+
+- You can now use this hook in any functional component:
+  ```
+  function MyComponent() {
+    const width = useWindowWidth();
+    return <p>Window width: {width}px</p>;
+  }
+  ```
+
+#### Rules of Custom Hooks
+
+To ensure hooks work as expected, you must follow the Rules of Hooks:
+
+- Only call hooks at the top level
+
+  - Don’t call hooks inside loops, conditions, or nested functions.
+
+  - This ensures React can track the order of hook calls consistently.
+
+- Only call hooks from React functions
+
+  - Use hooks in React function components or other custom hooks only.
+
+  - Avoid using them in regular JavaScript functions or class components.
+
+- Prefix with use
+
+  - Custom hook names must start with use (e.g., useFetch, useLocalStorage) to be recognized by React linting tools and the compiler.
+
+#### When to Use Custom Hooks
+
+- Custom hooks are ideal when you want to:
+
+  - Share logic across components (e.g., timers, form state, media queries).
+
+  - Encapsulate side effects like data fetching or event listeners.
+
+  - Compose behavior from other hooks.
+
+#### Best Practices
+
+| Practice                       | Reason                                                                 |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| Use meaningful names (useAuth) | Makes intent and usage clear                                           |
+| Return values clearly          | Use arrays or objects to make return values predictable and documented |
+| Separate logic from UI         | Keep hooks focused on logic; UI remains in components                  |
+| Compose hooks                  | if needed Build on existing hooks to create new functionality          |
+
+## 7. What patterns do you use for component composition (e.g., compound components, function as child)?
+
+### Answer:
+
+Component composition is one of the core strengths of React. It allows developers to build flexible and reusable UIs by composing components together in meaningful ways. I often use patterns like compound components, function as a child (render props), and context-based composition to maintain clean separation of concerns and improve flexibility.
+
+#### Common Component Composition Patterns
+
+1.  Compound Components
+
+    - How it works:
+      Multiple related components work together under a single parent component to manage shared state implicitly.
+
+      ```
+      function Tabs({ children }) {
+        const [activeIndex, setActiveIndex] = useState(0);
+
+        return (
+          <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
+            {children}
+          </TabsContext.Provider>
+        );
+      }
+
+      function TabList({ children }) {
+        return <div>{children}</div>;
+      }
+
+      function Tab({ index, children }) {
+        const { activeIndex, setActiveIndex } = useContext(TabsContext);
+        return (
+          <button
+            className={index === activeIndex ? "active" : ""}
+            onClick={() => setActiveIndex(index)}
+          >
+            {children}
+          </button>
+        );
+      }
+
+      function TabPanel({ index, children }) {
+        const { activeIndex } = useContext(TabsContext);
+        return activeIndex === index ? <div>{children}</div> : null;
+      }
+      ```
+
+    - Why it's useful:
+      - Encourages clean API and encapsulated logic without passing props deeply.
+
+2.  Function as Child (Render Props)
+
+    - How it works:
+
+      - A component accepts a function as its child. This function receives state or logic and returns JSX.
+
+      ```
+      function MouseTracker({ children }) {
+        const [position, setPosition] = useState({ x: 0, y: 0 });
+
+        useEffect(() => {
+          const handleMove = e => setPosition({ x: e.clientX, y: e.clientY });
+          window.addEventListener('mousemove', handleMove);
+          return () => window.removeEventListener('mousemove', handleMove);
+        }, []);
+
+        return children(position);
+      }
+
+      // Usage:
+      <MouseTracker>
+        {({ x, y }) => <p>The mouse position is {x}, {y}</p>}
+      </MouseTracker>
+      ```
+
+    - Why it's useful:
+      - Great for reusable logic with custom UI. Replaced in many cases by hooks.
+
+3.  Context-Based Composition
+
+    - How it works:
+
+      - Use React Context to share state/functionality between multiple nested components without prop drilling.
+
+      ```
+      const ThemeContext = React.createContext();
+
+      function ThemeProvider({ children }) {
+        const [theme, setTheme] = useState("dark");
+        return (
+          <ThemeContext.Provider value={{ theme, setTheme }}>
+            {children}
+          </ThemeContext.Provider>
+        );
+      }
+
+      function ThemedComponent() {
+        const { theme } = useContext(ThemeContext);
+        return <div className={theme}>I'm themed!</div>;
+      }
+      ```
+
+    - Why it's useful:
+      - Solves deeply nested prop problems; works well with compound components.
+
+#### Best Practices
+
+| Pattern                | When to Use                                                |
+| ---------------------- | ---------------------------------------------------------- |
+| Compound Components    | For grouped elements sharing internal state                |
+| Function as Child      | When custom rendering logic is needed with shared behavior |
+| Context API            | For global or shared state management                      |
+| Hook + Component combo | For clean separation of logic and presentation             |
+
+## 8. Describe how you’d integrate React with a GraphQL API (e.g., Apollo Client, Relay).
+
+### Answer:
+
+Integrating React with a GraphQL API allows you to fetch and manage data declaratively using queries and mutations. Tools like Apollo Client and Relay streamline this process by handling query execution, caching, and state management on the client side. I typically use Apollo Client due to its flexibility and strong community support.
+
+#### How to Integrate React with GraphQL Using Apollo Client
+
+1. Install Apollo Client and Dependencies
+
+   `npm install @apollo/client graphql`
+
+2. Set Up Apollo Client
+
+   ```
+   import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+   const client = new ApolloClient({
+     uri: 'https://your-graphql-endpoint.com/graphql',
+     cache: new InMemoryCache(),
+   });
+
+   function App() {
+     return (
+       <ApolloProvider client={client}>
+         <YourAppComponents />
+       </ApolloProvider>
+     );
+   }
+   ```
+
+3. Use GraphQL Queries in Components
+
+   ```
+   import { useQuery, gql } from '@apollo/client';
+
+   const GET_USERS = gql`
+     query GetUsers {
+       users {
+         id
+         name
+       }
+     }
+   `;
+
+   function UserList() {
+     const { loading, error, data } = useQuery(GET_USERS);
+
+     if (loading) return <p>Loading...</p>;
+     if (error) return <p>Error loading users.</p>;
+
+     return (
+       <ul>
+         {data.users.map(user => (
+           <li key={user.id}>{user.name}</li>
+         ))}
+       </ul>
+     );
+   }
+   ```
+
+4. Mutations with Apollo
+
+   ```
+   import { useMutation, gql } from '@apollo/client';
+
+   const ADD_USER = gql`
+     mutation AddUser($name: String!) {
+       addUser(name: $name) {
+         id
+         name
+       }
+     }
+   `;
+
+   function AddUserForm() {
+     const [addUser] = useMutation(ADD_USER);
+
+     const handleSubmit = e => {
+       e.preventDefault();
+       const name = e.target.elements.name.value;
+       addUser({ variables: { name } });
+     };
+
+     return (
+       <form onSubmit={handleSubmit}>
+         <input name="name" placeholder="Enter name" />
+         <button type="submit">Add User</button>
+       </form>
+     );
+   }
+   ```
+
+#### Features Provided by Apollo
+
+| Feature                | Benefit                                |
+| ---------------------- | -------------------------------------- |
+| Query & Mutation APIs  | Declarative data fetching and updates  |
+| In-memory cache        | Reduces duplicate network calls        |
+| DevTools integration   | Debug and inspect cache/state          |
+| Error & loading states | Built-in UI helpers for async handling |
+
+#### Relay (Alternative)
+
+- Relay is a powerful GraphQL client built by Meta, designed for highly-scalable apps:
+
+  - Strongly typed and static-optimized.
+
+  - Fragments-first architecture for co-locating data with components.
+
+  - Requires a build step with a GraphQL compiler.
+
+- Relay is ideal for large, performance-critical apps with strict type safety needs.
+
+#### Best Practices
+
+| Practice                   | Why It Helps                                                  |
+| -------------------------- | ------------------------------------------------------------- |
+| Use fragments              | for reusable queries DRY and consistent data shapes           |
+| Normalize cache            | keys properly Ensures cache consistency and avoids duplicates |
+| Handle loading & errors    | gracefully Improves UX                                        |
+| Use devtools for debugging | Speeds up development and cache inspection                    |
+
+## 9. How would you architect a micro‑frontend system using React? What challenges arise?
+
+### Answer:
+
+A micro-frontend architecture breaks a large frontend app into smaller, independently deployable modules (or “frontends”), each owned by different teams. Using React in a micro-frontend setup allows teams to develop, deploy, and scale parts of the UI independently. This is especially valuable in enterprise-scale apps.
+
+#### How to Architect a Micro-Frontend System Using React
+
+1. Choose an Integration Strategy
+   | Strategy | Description |
+   | Module Federation (Webpack 5) | Each app exposes/imports React components at runtime |
+   | iframes | Legacy isolation; poor UX but strict separation |
+   | JavaScript-based integration | Apps exposed globally and loaded dynamically |
+   | Single-spa | Framework-agnostic orchestrator for multiple frontends |
+2. Module Federation (Preferred for React)
+
+   - Using Webpack 5 Module Federation, each team builds its app independently, and a host shell loads them dynamically.
+
+   - Example webpack.config.js in Remote App:
+     ```
+     module.exports = {
+       name: "products",
+       exposes: {
+         './ProductList': './src/ProductList',
+       },
+       shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
+     };
+     ```
+   - Host App:
+     ```
+     remotes: {
+       products: "products@http://localhost:3001/remoteEntry.js",
+     }
+     ```
+   - Then load components via:
+
+     `const ProductList = React.lazy(() => import("products/ProductList"));`
+
+3. Shared Dependencies
+
+   - Use singleton configuration for React and ReactDOM to avoid version mismatches.
+
+   - Use a monorepo or strict versioning policies to manage shared dependencies across teams.
+
+4. Routing Integration
+
+   - Use a central router (like React Router in host) or isolate routes per micro-app.
+
+   - Share route state using a global state manager (like Redux or Zustand) or messaging events.
+
+5. Deployment & CI/CD
+
+   - Each micro-frontend is independently deployed (e.g., as a static asset bundle).
+
+   - The shell app can fetch the latest version dynamically, enabling partial rollouts or hot-swapping.
+
+#### Challenges in Micro-Frontends
+
+| Challenge                        | Solution                                                   |
+| -------------------------------- | ---------------------------------------------------------- |
+| Version mismatches               | Use singleton/shared dependencies in Module Federation     |
+| Global state coordination        | Use shared context or event bus (e.g., postMessage, Redux) |
+| Styling conflicts                | Use CSS modules, Tailwind, or Shadow DOM for isolation     |
+| Increased complexity             | Add orchestration tools, clear team contracts              |
+| Performance & bundle duplication | Deduplicate using shared Webpack config or build analysis  |
+
+#### Best Practices
+
+| Practice                           | Why It Helps                                 |
+| ---------------------------------- | -------------------------------------------- |
+| Keep micro-apps truly independent  | Enables better scalability and team autonomy |
+| Define clear integration contracts | Reduces coupling and unexpected changes      |
+| Use lazy loading for performance   | Prevents huge initial payloads               |
+| Central logging & monitoring       | Unified observability across micro-apps      |
